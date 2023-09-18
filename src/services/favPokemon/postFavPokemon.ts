@@ -6,10 +6,11 @@ import { marshall } from "@aws-sdk/util-dynamodb";
 export async function postFavPokemon(event:APIGatewayProxyEvent, ddbClient: DynamoDBClient): Promise<APIGatewayProxyResult> {
     
     const item = JSON.parse(event.body);
-    item.id_pokemon = item.id_pokemon;
+    item.pokemon_id = item.pokemon_id;
     item.name = item.name;
     item.default_sprite = item.default_sprite;
     item.types = item.types;
+    item.user_id = item.user_id;
     item.id = v4();
 
     await ddbClient.send(new PutItemCommand({
