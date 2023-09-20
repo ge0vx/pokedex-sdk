@@ -1,5 +1,5 @@
 import { Stack, StackProps } from "aws-cdk-lib";
-import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
+import { Cors, LambdaIntegration, ResourceOptions, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { Construct } from "constructs";
 
 interface ApiStackProps extends StackProps {
@@ -13,7 +13,14 @@ export class ApiStack extends Stack {
 
         const api = new RestApi(this, 'favPokemonApi');
 
-        const favPokemonResource = api.root.addResource('favPokemon');
+        const optionsWithCors: ResourceOptions = {
+            defaultCorsPreflightOptions: {
+                allowOrigins: Cors.ALL_ORIGINS,
+                allowMethods: Cors.ALL_METHODS,
+            }
+        }
+
+        const favPokemonResource = api.root.addResource('favPokemon', optionsWithCors);
         favPokemonResource.addMethod('GET', props.favPokemonIntegration)
         favPokemonResource.addMethod('POST', props.favPokemonIntegration)
         

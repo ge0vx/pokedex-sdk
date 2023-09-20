@@ -6,6 +6,14 @@ import { getFavPokemon } from "./getFavPokemon";
 
 const ddbClient = new DynamoDBClient({});
 
+function addCorsHeader(arg: APIGatewayProxyResult){
+    if(!arg.headers) {
+        arg.headers = {}
+    }
+    arg.headers['Access-Control-Allow-Origin'] = "*";
+    arg.headers['Access-Control-Allow-Methods'] = "*";
+}
+
 async function handler(event:APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
 
     let response: APIGatewayProxyResult;
@@ -31,6 +39,7 @@ async function handler(event:APIGatewayProxyEvent, context: Context): Promise<AP
         }
     }
 
+    addCorsHeader(response)
     return response;
 }
 
