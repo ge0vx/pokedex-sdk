@@ -1,0 +1,466 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Initial test suite ApiGateway Deployment snapshost  1`] = `
+{
+  "favPokemonApiDeployment74C1D062a17659c4080597ebc44f8d75109e951b": {
+    "DependsOn": [
+      "favPokemonApifavPokemonGETE8E45793",
+      "favPokemonApifavPokemonPOSTAA9F0B8C",
+      "favPokemonApifavPokemonF31CDD74",
+    ],
+    "Properties": {
+      "Description": "Automatically created by the RestApi construct",
+      "RestApiId": {
+        "Ref": "favPokemonApi8D02935E",
+      },
+    },
+    "Type": "AWS::ApiGateway::Deployment",
+  },
+}
+`;
+
+exports[`Initial test suite ApiGateway Rest API service snapshot 1`] = `
+{
+  "Outputs": {
+    "favPokemonApiEndpoint89992AA8": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "favPokemonApi8D02935E",
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            {
+              "Ref": "favPokemonApiDeploymentStageprodA65E66FF",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "favPokemonApi8D02935E": {
+      "Properties": {
+        "Name": "favPokemonApi",
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "favPokemonApiAccount68C42CB1": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "favPokemonApi8D02935E",
+      ],
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "favPokemonApiCloudWatchRole9D5C2DEB",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ApiGateway::Account",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "favPokemonApiCloudWatchRole9D5C2DEB": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "favPokemonApiDeployment74C1D062a17659c4080597ebc44f8d75109e951b": {
+      "DependsOn": [
+        "favPokemonApifavPokemonGETE8E45793",
+        "favPokemonApifavPokemonPOSTAA9F0B8C",
+        "favPokemonApifavPokemonF31CDD74",
+      ],
+      "Properties": {
+        "Description": "Automatically created by the RestApi construct",
+        "RestApiId": {
+          "Ref": "favPokemonApi8D02935E",
+        },
+      },
+      "Type": "AWS::ApiGateway::Deployment",
+    },
+    "favPokemonApiDeploymentStageprodA65E66FF": {
+      "DependsOn": [
+        "favPokemonApiAccount68C42CB1",
+      ],
+      "Properties": {
+        "DeploymentId": {
+          "Ref": "favPokemonApiDeployment74C1D062a17659c4080597ebc44f8d75109e951b",
+        },
+        "RestApiId": {
+          "Ref": "favPokemonApi8D02935E",
+        },
+        "StageName": "prod",
+      },
+      "Type": "AWS::ApiGateway::Stage",
+    },
+    "favPokemonApifavPokemonF31CDD74": {
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "favPokemonApi8D02935E",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "favPokemon",
+        "RestApiId": {
+          "Ref": "favPokemonApi8D02935E",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "favPokemonApifavPokemonGETApiPermissionApiStackFavPokemonfavPokemonApi46EBFF55GETfavPokemon3563314A": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::ImportValue": "LambdaStackFavPokemon:ExportsOutputFnGetAttfavPokemonLambdaBFB7282AArnCA5AD750",
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "favPokemonApi8D02935E",
+              },
+              "/",
+              {
+                "Ref": "favPokemonApiDeploymentStageprodA65E66FF",
+              },
+              "/GET/favPokemon",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "favPokemonApifavPokemonGETApiPermissionTestApiStackFavPokemonfavPokemonApi46EBFF55GETfavPokemon2180194C": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::ImportValue": "LambdaStackFavPokemon:ExportsOutputFnGetAttfavPokemonLambdaBFB7282AArnCA5AD750",
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "favPokemonApi8D02935E",
+              },
+              "/test-invoke-stage/GET/favPokemon",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "favPokemonApifavPokemonGETE8E45793": {
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "GET",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::ImportValue": "LambdaStackFavPokemon:ExportsOutputFnGetAttfavPokemonLambdaBFB7282AArnCA5AD750",
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "favPokemonApifavPokemonF31CDD74",
+        },
+        "RestApiId": {
+          "Ref": "favPokemonApi8D02935E",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "favPokemonApifavPokemonPOSTAA9F0B8C": {
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "POST",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::ImportValue": "LambdaStackFavPokemon:ExportsOutputFnGetAttfavPokemonLambdaBFB7282AArnCA5AD750",
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "favPokemonApifavPokemonF31CDD74",
+        },
+        "RestApiId": {
+          "Ref": "favPokemonApi8D02935E",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "favPokemonApifavPokemonPOSTApiPermissionApiStackFavPokemonfavPokemonApi46EBFF55POSTfavPokemonFDBE8EEF": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::ImportValue": "LambdaStackFavPokemon:ExportsOutputFnGetAttfavPokemonLambdaBFB7282AArnCA5AD750",
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "favPokemonApi8D02935E",
+              },
+              "/",
+              {
+                "Ref": "favPokemonApiDeploymentStageprodA65E66FF",
+              },
+              "/POST/favPokemon",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "favPokemonApifavPokemonPOSTApiPermissionTestApiStackFavPokemonfavPokemonApi46EBFF55POSTfavPokemon7AB223EE": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::ImportValue": "LambdaStackFavPokemon:ExportsOutputFnGetAttfavPokemonLambdaBFB7282AArnCA5AD750",
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "favPokemonApi8D02935E",
+              },
+              "/test-invoke-stage/POST/favPokemon",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`Initial test suite ApiGateway snapshost  1`] = `
+{
+  "favPokemonApi8D02935E": {
+    "Properties": {
+      "Name": "favPokemonApi",
+    },
+    "Type": "AWS::ApiGateway::RestApi",
+  },
+}
+`;
+
+exports[`Initial test suite ApiGatewayAccount snapshost  1`] = `
+{
+  "favPokemonApi8D02935E": {
+    "Properties": {
+      "Name": "favPokemonApi",
+    },
+    "Type": "AWS::ApiGateway::RestApi",
+  },
+}
+`;
+
+exports[`Initial test suite IAMRole snapshot 1`] = `
+{
+  "favPokemonApiCloudWatchRole9D5C2DEB": {
+    "DeletionPolicy": "Retain",
+    "Properties": {
+      "AssumeRolePolicyDocument": {
+        "Statement": [
+          {
+            "Action": "sts:AssumeRole",
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "apigateway.amazonaws.com",
+            },
+          },
+        ],
+        "Version": "2012-10-17",
+      },
+      "ManagedPolicyArns": [
+        {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+            ],
+          ],
+        },
+      ],
+    },
+    "Type": "AWS::IAM::Role",
+    "UpdateReplacePolicy": "Retain",
+  },
+}
+`;

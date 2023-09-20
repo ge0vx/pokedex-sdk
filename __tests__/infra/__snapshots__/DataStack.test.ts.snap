@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Initial test suite CDK Metadata snapshot 1`] = `{}`;
+
+exports[`Initial test suite Dynamo Table snapshot 1`] = `
+{
+  "favPokemonTable9241278D": {
+    "DeletionPolicy": "Retain",
+    "Properties": {
+      "AttributeDefinitions": [
+        {
+          "AttributeName": "id",
+          "AttributeType": "S",
+        },
+      ],
+      "KeySchema": [
+        {
+          "AttributeName": "id",
+          "KeyType": "HASH",
+        },
+      ],
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5,
+      },
+      "TableName": "favPokemonTable",
+    },
+    "Type": "AWS::DynamoDB::Table",
+    "UpdateReplacePolicy": "Retain",
+  },
+}
+`;
+
+exports[`Initial test suite DynamoDB Table snapshot 1`] = `
+{
+  "favPokemonTable9241278D": {
+    "DeletionPolicy": "Retain",
+    "Properties": {
+      "AttributeDefinitions": [
+        {
+          "AttributeName": "id",
+          "AttributeType": "S",
+        },
+      ],
+      "KeySchema": [
+        {
+          "AttributeName": "id",
+          "KeyType": "HASH",
+        },
+      ],
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5,
+      },
+      "TableName": "favPokemonTable",
+    },
+    "Type": "AWS::DynamoDB::Table",
+    "UpdateReplacePolicy": "Retain",
+  },
+}
+`;
