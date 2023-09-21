@@ -38,7 +38,7 @@ async function handler(event:APIGatewayProxyEvent, context: Context): Promise<AP
             body: JSON.stringify(error.message)
         }
     }
-
+    
     addCorsHeader(response)
     return response;
 }

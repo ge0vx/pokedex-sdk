@@ -72,42 +72,6 @@ exports[`Initial test suite IAM Role snapshot 1`] = `
 }
 `;
 
-exports[`Initial test suite IAM service snapshot 1`] = `
-{
-  "favPokemonLambdaServiceRole92C59608": {
-    "Properties": {
-      "AssumeRolePolicyDocument": {
-        "Statement": [
-          {
-            "Action": "sts:AssumeRole",
-            "Effect": "Allow",
-            "Principal": {
-              "Service": "lambda.amazonaws.com",
-            },
-          },
-        ],
-        "Version": "2012-10-17",
-      },
-      "ManagedPolicyArns": [
-        {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Ref": "AWS::Partition",
-              },
-              ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-            ],
-          ],
-        },
-      ],
-    },
-    "Type": "AWS::IAM::Role",
-  },
-}
-`;
-
 exports[`Initial test suite Lambda service snapshot 1`] = `
 {
   "favPokemonLambdaBFB7282A": {
@@ -120,43 +84,7 @@ exports[`Initial test suite Lambda service snapshot 1`] = `
         "S3Bucket": {
           "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
         },
-        "S3Key": "bc4cf8707276bb153c0cf6a3d13b47482f70991c2baa30bcd894426100f32c49.zip",
-      },
-      "Environment": {
-        "Variables": {
-          "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-          "TABLE_NAME": {
-            "Fn::ImportValue": "DataStackFavPokemon:ExportsOutputReffavPokemonTable9241278D998B3767",
-          },
-        },
-      },
-      "Handler": "index.handler",
-      "Role": {
-        "Fn::GetAtt": [
-          "favPokemonLambdaServiceRole92C59608",
-          "Arn",
-        ],
-      },
-      "Runtime": "nodejs18.x",
-    },
-    "Type": "AWS::Lambda::Function",
-  },
-}
-`;
-
-exports[`Initial test suite Lambda stack snapshot 1`] = `
-{
-  "favPokemonLambdaBFB7282A": {
-    "DependsOn": [
-      "favPokemonLambdaServiceRoleDefaultPolicy6420EA11",
-      "favPokemonLambdaServiceRole92C59608",
-    ],
-    "Properties": {
-      "Code": {
-        "S3Bucket": {
-          "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
-        },
-        "S3Key": "bc4cf8707276bb153c0cf6a3d13b47482f70991c2baa30bcd894426100f32c49.zip",
+        "S3Key": "d35672eb5ceacf091e7e17b942f7cc8f0dfa61361c5344dd7fa553c7c1ebb6b7.zip",
       },
       "Environment": {
         "Variables": {

@@ -1,24 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Initial test suite ApiGateway Deployment snapshost  1`] = `
-{
-  "favPokemonApiDeployment74C1D062a17659c4080597ebc44f8d75109e951b": {
-    "DependsOn": [
-      "favPokemonApifavPokemonGETE8E45793",
-      "favPokemonApifavPokemonPOSTAA9F0B8C",
-      "favPokemonApifavPokemonF31CDD74",
-    ],
-    "Properties": {
-      "Description": "Automatically created by the RestApi construct",
-      "RestApiId": {
-        "Ref": "favPokemonApi8D02935E",
-      },
-    },
-    "Type": "AWS::ApiGateway::Deployment",
-  },
-}
-`;
-
 exports[`Initial test suite ApiGateway Rest API service snapshot 1`] = `
 {
   "Outputs": {
@@ -112,9 +93,10 @@ exports[`Initial test suite ApiGateway Rest API service snapshot 1`] = `
       "Type": "AWS::IAM::Role",
       "UpdateReplacePolicy": "Retain",
     },
-    "favPokemonApiDeployment74C1D062a17659c4080597ebc44f8d75109e951b": {
+    "favPokemonApiDeployment74C1D06254e22844ce4a4fc06ccc7fc67f90ee00": {
       "DependsOn": [
         "favPokemonApifavPokemonGETE8E45793",
+        "favPokemonApifavPokemonOPTIONS55B4EDC5",
         "favPokemonApifavPokemonPOSTAA9F0B8C",
         "favPokemonApifavPokemonF31CDD74",
       ],
@@ -132,7 +114,7 @@ exports[`Initial test suite ApiGateway Rest API service snapshot 1`] = `
       ],
       "Properties": {
         "DeploymentId": {
-          "Ref": "favPokemonApiDeployment74C1D062a17659c4080597ebc44f8d75109e951b",
+          "Ref": "favPokemonApiDeployment74C1D06254e22844ce4a4fc06ccc7fc67f90ee00",
         },
         "RestApiId": {
           "Ref": "favPokemonApi8D02935E",
@@ -256,6 +238,46 @@ exports[`Initial test suite ApiGateway Rest API service snapshot 1`] = `
             ],
           },
         },
+        "ResourceId": {
+          "Ref": "favPokemonApifavPokemonF31CDD74",
+        },
+        "RestApiId": {
+          "Ref": "favPokemonApi8D02935E",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "favPokemonApifavPokemonOPTIONS55B4EDC5": {
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
         "ResourceId": {
           "Ref": "favPokemonApifavPokemonF31CDD74",
         },
@@ -401,66 +423,6 @@ exports[`Initial test suite ApiGateway Rest API service snapshot 1`] = `
         },
       ],
     },
-  },
-}
-`;
-
-exports[`Initial test suite ApiGateway snapshost  1`] = `
-{
-  "favPokemonApi8D02935E": {
-    "Properties": {
-      "Name": "favPokemonApi",
-    },
-    "Type": "AWS::ApiGateway::RestApi",
-  },
-}
-`;
-
-exports[`Initial test suite ApiGatewayAccount snapshost  1`] = `
-{
-  "favPokemonApi8D02935E": {
-    "Properties": {
-      "Name": "favPokemonApi",
-    },
-    "Type": "AWS::ApiGateway::RestApi",
-  },
-}
-`;
-
-exports[`Initial test suite IAMRole snapshot 1`] = `
-{
-  "favPokemonApiCloudWatchRole9D5C2DEB": {
-    "DeletionPolicy": "Retain",
-    "Properties": {
-      "AssumeRolePolicyDocument": {
-        "Statement": [
-          {
-            "Action": "sts:AssumeRole",
-            "Effect": "Allow",
-            "Principal": {
-              "Service": "apigateway.amazonaws.com",
-            },
-          },
-        ],
-        "Version": "2012-10-17",
-      },
-      "ManagedPolicyArns": [
-        {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Ref": "AWS::Partition",
-              },
-              ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
-            ],
-          ],
-        },
-      ],
-    },
-    "Type": "AWS::IAM::Role",
-    "UpdateReplacePolicy": "Retain",
   },
 }
 `;
