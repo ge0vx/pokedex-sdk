@@ -2,17 +2,10 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { postFavPokemon } from "./postFavPokemon";
 import { getFavPokemon } from "./getFavPokemon";
+import { addCorsHeader } from "../helpers";
 
 
 const ddbClient = new DynamoDBClient({});
-
-function addCorsHeader(arg: APIGatewayProxyResult){
-    if(!arg.headers) {
-        arg.headers = {}
-    }
-    arg.headers['Access-Control-Allow-Origin'] = "*";
-    arg.headers['Access-Control-Allow-Methods'] = "*";
-}
 
 async function handler(event:APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
 
@@ -33,7 +26,7 @@ async function handler(event:APIGatewayProxyEvent): Promise<APIGatewayProxyResul
         }
     } catch(error) {
 
-        return {
+        response = {
             statusCode: 500,
             body: JSON.stringify(error.message)
         }
