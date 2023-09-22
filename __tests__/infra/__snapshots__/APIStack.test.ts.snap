@@ -93,12 +93,15 @@ exports[`Initial test suite ApiGateway Rest API service snapshot 1`] = `
       "Type": "AWS::IAM::Role",
       "UpdateReplacePolicy": "Retain",
     },
-    "favPokemonApiDeployment74C1D06254e22844ce4a4fc06ccc7fc67f90ee00": {
+    "favPokemonApiDeployment74C1D062d61af481c72453c8fc699b784558f6e0": {
       "DependsOn": [
         "favPokemonApifavPokemonGETE8E45793",
         "favPokemonApifavPokemonOPTIONS55B4EDC5",
         "favPokemonApifavPokemonPOSTAA9F0B8C",
         "favPokemonApifavPokemonF31CDD74",
+        "favPokemonApipokemonGET7ADF943C",
+        "favPokemonApipokemonOPTIONS7C9E7188",
+        "favPokemonApipokemonD494A5F6",
       ],
       "Properties": {
         "Description": "Automatically created by the RestApi construct",
@@ -114,7 +117,7 @@ exports[`Initial test suite ApiGateway Rest API service snapshot 1`] = `
       ],
       "Properties": {
         "DeploymentId": {
-          "Ref": "favPokemonApiDeployment74C1D06254e22844ce4a4fc06ccc7fc67f90ee00",
+          "Ref": "favPokemonApiDeployment74C1D062d61af481c72453c8fc699b784558f6e0",
         },
         "RestApiId": {
           "Ref": "favPokemonApi8D02935E",
@@ -395,6 +398,170 @@ exports[`Initial test suite ApiGateway Rest API service snapshot 1`] = `
         },
       },
       "Type": "AWS::Lambda::Permission",
+    },
+    "favPokemonApipokemonD494A5F6": {
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "favPokemonApi8D02935E",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "pokemon",
+        "RestApiId": {
+          "Ref": "favPokemonApi8D02935E",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "favPokemonApipokemonGET7ADF943C": {
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "GET",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::ImportValue": "LambdaStackFavPokemon:ExportsOutputFnGetAttPokemonLamda31F64495ArnE7A94F90",
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "favPokemonApipokemonD494A5F6",
+        },
+        "RestApiId": {
+          "Ref": "favPokemonApi8D02935E",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "favPokemonApipokemonGETApiPermissionApiStackFavPokemonfavPokemonApi46EBFF55GETpokemon56034B92": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::ImportValue": "LambdaStackFavPokemon:ExportsOutputFnGetAttPokemonLamda31F64495ArnE7A94F90",
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "favPokemonApi8D02935E",
+              },
+              "/",
+              {
+                "Ref": "favPokemonApiDeploymentStageprodA65E66FF",
+              },
+              "/GET/pokemon",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "favPokemonApipokemonGETApiPermissionTestApiStackFavPokemonfavPokemonApi46EBFF55GETpokemon4A0D77EE": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::ImportValue": "LambdaStackFavPokemon:ExportsOutputFnGetAttPokemonLamda31F64495ArnE7A94F90",
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "favPokemonApi8D02935E",
+              },
+              "/test-invoke-stage/GET/pokemon",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "favPokemonApipokemonOPTIONS7C9E7188": {
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
+        "ResourceId": {
+          "Ref": "favPokemonApipokemonD494A5F6",
+        },
+        "RestApiId": {
+          "Ref": "favPokemonApi8D02935E",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
     },
   },
   "Rules": {

@@ -18,7 +18,8 @@ describe('Initial test suite', ()=>{
             favPokemonTable : dataStack.favPokemonTable
         });
         const apiStack = new ApiStack(testApp, 'ApiStackFavPokemon', {
-            favPokemonIntegration: lambdaStack.favPokemonIntegration
+            favPokemonIntegration: lambdaStack.favPokemonIntegration,
+            pokemonLambdaIntegration: lambdaStack.pokemonLamdaIntegration
         })
 
         apiStackTemplate = Template.fromStack(apiStack);
