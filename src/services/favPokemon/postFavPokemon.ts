@@ -2,9 +2,11 @@ import { DynamoDBClient, PutItemCommand, ScanCommand } from "@aws-sdk/client-dyn
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { v4 } from "uuid";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { PokemonClient } from "pokenode-ts";
+
+const api = new PokemonClient();
 
 export async function postFavPokemon(event:APIGatewayProxyEvent, ddbClient: DynamoDBClient): Promise<APIGatewayProxyResult> {
-    
     const item = JSON.parse(event.body);
     item.pokemon_id = item.pokemon_id;
     item.name = item.name;
@@ -12,6 +14,11 @@ export async function postFavPokemon(event:APIGatewayProxyEvent, ddbClient: Dyna
     item.types = item.types;
     item.user_id = item.user_id;
     item.id = v4();
+
+    if(item.default_sprite=='' && item.name !=''){
+        const getItemResponse = await api.getPokemonByName(item.name);
+        item.default_sprite = getItemResponse?.sprites?.front_default;
+    }
 
     if(!item.name || !item.user_id){
         return {

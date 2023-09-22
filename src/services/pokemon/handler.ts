@@ -3,8 +3,10 @@ import { PokemonClient } from 'pokenode-ts';
 import { Pokemon } from "../models/Pokemon";
 import { addCorsHeader } from "../helpers";
 
+const api = new PokemonClient();
+
 async function handler(event: APIGatewayProxyEvent) {
-    const api = new PokemonClient();
+    
     let response: APIGatewayProxyResult;
     
     if(event.queryStringParameters) {
@@ -32,8 +34,8 @@ async function handler(event: APIGatewayProxyEvent) {
         
             } catch (error) {
                 response = {
-                    statusCode: 200,
-                    body: JSON.stringify("error")
+                    statusCode: 400,
+                    body: JSON.stringify(`something happend : ${error.message}`)
                 }
             }
         }
@@ -48,8 +50,8 @@ async function handler(event: APIGatewayProxyEvent) {
     
         } catch (error) {
             response = {
-                statusCode: 200,
-                body: JSON.stringify("error")
+                statusCode: 400,
+                body: JSON.stringify(`something happend listing : ${error.message}`)
             }
         }
     }
