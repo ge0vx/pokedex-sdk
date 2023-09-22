@@ -1,5 +1,5 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-lambda";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { postFavPokemon } from "./postFavPokemon";
 import { getFavPokemon } from "./getFavPokemon";
 
@@ -14,7 +14,7 @@ function addCorsHeader(arg: APIGatewayProxyResult){
     arg.headers['Access-Control-Allow-Methods'] = "*";
 }
 
-async function handler(event:APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
+async function handler(event:APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
 
     let response: APIGatewayProxyResult;
 

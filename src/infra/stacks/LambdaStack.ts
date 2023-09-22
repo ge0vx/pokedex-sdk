@@ -14,13 +14,17 @@ interface LambdaStackProps extends StackProps {
 export class LambdaStack extends Stack {
 
     public readonly favPokemonIntegration: LambdaIntegration;
+    public readonly pokemonLamdaIntegration: LambdaIntegration;
 
     constructor(scope: Construct, id: string, props?: LambdaStackProps){
         super(scope, id, props);
 
+        const runtime = Runtime.NODEJS_18_X;
+        const handlerFileName = 'handler';
+
         const favPokemonLambda = new NodejsFunction(this, 'favPokemonLambda',{
-            runtime: Runtime.NODEJS_18_X,
-            handler: 'handler',
+            runtime,
+            handler: handlerFileName,
             entry: join(__dirname, '..', '..', 'services', 'favPokemon', 'handler.ts'),
             environment: {
                 TABLE_NAME: props.favPokemonTable.tableName
@@ -35,7 +39,14 @@ export class LambdaStack extends Stack {
                 'dynamodb:Scan'
             ]
         }))
+
+        const pokemonLambda = new NodejsFunction(this, 'PokemonLamda', {
+            runtime: runtime,
+            handler: handlerFileName,
+            entry: join(__dirname, '..', '..', 'services', 'pokemon', 'handler.ts'),
+        })
         
         this.favPokemonIntegration = new LambdaIntegration(favPokemonLambda)
+        this.pokemonLamdaIntegration = new LambdaIntegration(pokemonLambda)
     }
 }

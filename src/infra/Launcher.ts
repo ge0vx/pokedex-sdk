@@ -10,5 +10,6 @@ const lambdaStack = new LambdaStack(app, 'LambdaStackFavPokemon', {
 });
 
 new ApiStack(app, 'ApiStackFavPokemon', {
-    favPokemonIntegration: lambdaStack.favPokemonIntegration
+    favPokemonIntegration: lambdaStack.favPokemonIntegration,
+    pokemonLambdaIntegration: lambdaStack.pokemonLamdaIntegration
 })

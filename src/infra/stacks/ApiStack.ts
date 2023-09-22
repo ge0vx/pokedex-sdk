@@ -4,6 +4,7 @@ import { Construct } from "constructs";
 
 interface ApiStackProps extends StackProps {
     favPokemonIntegration: LambdaIntegration
+    pokemonLambdaIntegration: LambdaIntegration
 }
 
 export class ApiStack extends Stack {
@@ -23,6 +24,9 @@ export class ApiStack extends Stack {
         const favPokemonResource = api.root.addResource('favPokemon', optionsWithCors);
         favPokemonResource.addMethod('GET', props.favPokemonIntegration)
         favPokemonResource.addMethod('POST', props.favPokemonIntegration)
+
+        const pokemonResource = api.root.addResource('pokemon', optionsWithCors);
+        pokemonResource.addMethod('GET', props.pokemonLambdaIntegration)
         
     }
 }
