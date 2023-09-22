@@ -1,4 +1,4 @@
-# digitalhype_back
+# Pokedex_back end
 
 ## requirements
 This Repo requires:
@@ -14,3 +14,5 @@ This Repo requires:
 - `cdk bootstrap`: To prepare inital stack.
 - `cdk synth`: To synth with AWS stacks.
 - `cdk deploy --all`: To deploy all AWS stacks, output displays end-points.
+
+# Giovany Perez Bautista giovanypeb@gmail.com
